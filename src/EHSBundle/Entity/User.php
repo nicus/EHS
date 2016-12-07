@@ -4,6 +4,7 @@ namespace EHSBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -27,49 +28,56 @@ class User extends BaseUser
      *
      * @ORM\Column(name="lastname", type="string", length=100)
      */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=100, nullable=true)
      */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
      */
-    private $address;
+    protected $address;
 
     /**
      * @var int
      *
      * @ORM\Column(name="zipCode", type="integer")
      */
-    private $zipCode;
+    protected $zipCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=100)
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=15)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="birth", type="date")
      */
-    private $birth;
+    protected $birth;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="newsletter", type="boolean")
+     */
+    protected $newsletter;
 
 
     /**
