@@ -79,6 +79,13 @@ class User extends BaseUser
      */
     protected $newsletter;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="accepted", type="boolean")
+     */
+    protected $accepted;
+
 
     /**
      * Get id
@@ -250,4 +257,37 @@ class User extends BaseUser
     {
         return $this->birth;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isNewsletter()
+    {
+        return $this->newsletter;
+    }
+
+    /**
+     * @param boolean $newsletter
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        return $this->accepted;
+    }
+
+    /**
+     * @param bool $accepted
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+    }
+
 }

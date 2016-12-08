@@ -9,4 +9,7 @@
 {{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
 {% endautoescape %}
 {% endblock %}
-{% block body_html %}{% endblock %}
+{% block body_html %}
+Bonjour veuillez suivre le lien pour réinitialiser votre mot de passe.
+{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endblock %}

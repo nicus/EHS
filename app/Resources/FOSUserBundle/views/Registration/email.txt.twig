@@ -9,4 +9,7 @@
 {{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
 {% endautoescape %}
 {% endblock %}
-{% block body_html %}{% endblock %}
+{% block body_html %}Bonjour, votre inscription a bien été enregistré.
+Après réception du règlement, vous recevrez un nouvel e-mail vous invitant à initialiser votre mot de passe.
+
+{% endblock %}

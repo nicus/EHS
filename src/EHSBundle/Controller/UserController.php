@@ -3,9 +3,14 @@
 namespace EHSBundle\Controller;
 
 use EHSBundle\Entity\User;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
@@ -40,13 +45,41 @@ class UserController extends Controller
     public function newAction(Request $request)
     {
         $user = new User();
+        $dispatcher = $this->get('event_dispatcher');
         $form = $this->createForm('EHSBundle\Form\UserType', $user);
+
+        $user->setEnabled(false);
+
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form->setData($user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setUsername($user->getEmail());
+            $user->setPlainPassword('P@ssword95+ùHsbT&');
+            $user->setAccepted(false);
+
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush($user);
+
+            if (null === $response = $event->getResponse()) {
+                $url = $this->generateUrl('fos_user_registration_confirmed');
+                $response = new RedirectResponse($url);
+            }
+
+//            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+//
+//            return $response;
 
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
@@ -55,6 +88,34 @@ class UserController extends Controller
             'user' => $user,
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * Validation new account
+     *
+     * @Route("/accept/{id}", name="user_accept")
+     * @Method("GET")
+     *
+     */
+    public function acceptAction(User $user){
+        $em=$this->getDoctrine()->getManager();
+
+        if (null === $user->getConfirmationToken()) {
+            /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
+            $tokenGenerator = $this->get('fos_user.util.token_generator');
+            $user->setConfirmationToken($tokenGenerator->generateToken());
+        }
+
+        $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $user->setAccepted(true);
+        $OneYear=new \DateTime();
+        $OneYear=$OneYear->setTimestamp($OneYear->getTimestamp()+(3600*24*365));
+        $user->setExpiresAt($OneYear);
+        $user->setPasswordRequestedAt(new \DateTime());
+        $em->persist($user);
+        $em->flush($user);
+
+        return $this->redirectToRoute('user_index');
     }
 
     /**
