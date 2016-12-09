@@ -68,7 +68,7 @@ class Article
     /**
      * article images
      *
-     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Image", inversedBy="article")
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Image", inversedBy="articles")
      * @ORM\JoinTable(name="article_img")
      */
     private $images;
@@ -81,17 +81,17 @@ class Article
      *     joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")})
      */
-    private $tag;
+    private $tags;
 
 
     /**
      * Article constructor.
-     * @param $images
+     *
      */
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->tag= new  ArrayCollection();
+        $this->tags= new  ArrayCollection();
     }
 
 
@@ -255,17 +255,17 @@ class Article
     /**
      * @return mixed
      */
-    public function getTag()
+    public function getTags()
     {
-        return $this->tag;
+        return $this->tags;
     }
 
     /**
-     * @param mixed $tag
+     * @param mixed $tags
      */
-    public function setTag($tag)
+    public function setTags($tags)
     {
-        $this->tag = $tag;
+        $this->tags = $tags;
     }
 
 }

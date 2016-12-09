@@ -28,6 +28,13 @@ class File
      */
     private $name;
 
+    /**
+     * Belongs to
+     *
+     * @ORM\ManyToOne(targetEntity="EHSBundle\Entity\Archive")
+     * @ORM\JoinColumn(name="archive_id", referencedColumnName="id")
+     */
+    private $archive;
 
     /**
      * Get id
@@ -61,4 +68,21 @@ class File
     {
         return $this->name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getArchive()
+    {
+        return $this->archive;
+    }
+
+    /**
+     * @param mixed $archive
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+    }
+
 }

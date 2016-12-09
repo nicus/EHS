@@ -2,6 +2,7 @@
 
 namespace EHSBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -69,6 +70,54 @@ class Event
      * @ORM\Column(name="archived", type="boolean")
      */
     private $archived;
+
+    /**
+     * event images
+     *
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Image", inversedBy="events")
+     * @ORM\JoinTable(name="event_img")
+     */
+    private $images;
+
+    /**
+     * event tags
+     *
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Tag")
+     * @ORM\JoinTable(name="event_tag",
+     *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")})
+     */
+    private $tags;
+
+    /**
+     * inscriptions event
+     *
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\EventInscription")
+     * @ORM\JoinTable(name="participate",
+     *     joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="inscription_id", referencedColumnName="id")})
+     */
+    private $inscriptions;
+
+
+    /**
+     * appointment event
+     *
+     * @ORM\ManyToOne(targetEntity="EHSBundle\Entity\Appointment")
+     * @ORM\JoinColumn(name="appointment_id", referencedColumnName="id")
+     */
+    private $appointment;
+
+
+    /**
+     * Event constructor.
+     */
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->tags= new ArrayCollection();
+        $this->inscriptions= new ArrayCollection();
+    }
 
 
     /**
@@ -241,4 +290,69 @@ class Event
     {
         return $this->archived;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
+    }
+
+    /**
+     * @param mixed $inscriptions
+     */
+    public function setInscriptions($inscriptions)
+    {
+        $this->inscriptions = $inscriptions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAppointment()
+    {
+        return $this->appointment;
+    }
+
+    /**
+     * @param mixed $appointment
+     */
+    public function setAppointment($appointment)
+    {
+        $this->appointment = $appointment;
+    }
+
 }

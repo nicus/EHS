@@ -62,6 +62,17 @@ class Newsletter
      */
     private $articles;
 
+
+    /**
+     * newsletter event
+     *
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Event")
+     * @ORM\JoinTable(name="event_in",
+     *     joinColumns={@ORM\JoinColumn(name="newsletter_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")})
+     */
+    private $events;
+
     /**
      * Newsletter constructor.
      *
@@ -69,6 +80,7 @@ class Newsletter
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
 
@@ -167,4 +179,36 @@ class Newsletter
         $this->user = $user;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param mixed $articles
+     */
+    public function setArticles($articles)
+    {
+        $this->articles = $articles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+    }
+    
 }

@@ -2,6 +2,7 @@
 
 namespace EHSBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,7 +48,23 @@ class Image
      *
      * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Article", mappedBy="images")
      */
-    private $article;
+    private $articles;
+
+
+    /**
+     * image events
+     *
+     * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Event", mappedBy="images")
+     */
+    private $events;
+
+    /**
+     * Image constructor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
 
     /**
@@ -132,17 +149,33 @@ class Image
     /**
      * @return mixed
      */
-    public function getArticle()
+    public function getArticles()
     {
-        return $this->article;
+        return $this->articles;
     }
 
     /**
-     * @param mixed $article
+     * @param mixed $articles
      */
-    public function setArticle($article)
+    public function setArticles($articles)
     {
-        $this->article = $article;
+        $this->articles = $articles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param mixed $events
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
     }
 
 }

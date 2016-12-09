@@ -49,6 +49,14 @@ class Archive
      */
     private $comments;
 
+    /**
+     * archive create or modify user
+     *
+     * @ORM\ManyToOne(targetEntity="EHSBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -151,4 +159,21 @@ class Archive
     {
         return $this->comments;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
 }
