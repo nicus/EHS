@@ -1,3 +1,15 @@
+ehs_tag:
+    resource: "@EHSBundle/Controller/TagController.php"
+    type:     annotation
+
+ehs_appointment:
+    resource: "@EHSBundle/Controller/AppointmentController.php"
+    type:     annotation
+
+ehs_event:
+    resource: "@EHSBundle/Controller/EventController.php"
+    type:     annotation
+
 ehs_user:
     resource: "@EHSBundle/Controller/UserController.php"
     type:     annotation

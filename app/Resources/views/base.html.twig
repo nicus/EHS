@@ -4,10 +4,22 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/EHS/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/EHS/css/buttons.dataTables.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/EHS/css/buttons.dataTables.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/EHS/css/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/EHS/css/select.dataTables.min.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            body{width: 80%; margin: auto;}
+        </style>
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{ asset('bundles/EHS/js/jquery-1.12.4.js') }}"></script>
+        <script src="{{ asset('bundles/EHS/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/EHS/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('bundles/EHS/js/dataTable.js') }}"></script>
     </body>
 </html>
