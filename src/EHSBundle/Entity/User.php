@@ -290,4 +290,8 @@ class User extends BaseUser
         $this->accepted = $accepted;
     }
 
+    public function getExpiresAt(){
+        return $this->expiresAt;
+    }
+
 }

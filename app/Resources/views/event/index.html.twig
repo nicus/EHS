@@ -3,21 +3,11 @@
 {% block body %}
     <h1>Liste des évènements</h1>
 
-    {#<ul>#}
-        {#<li>#}
-            {#<a href="{{ path('event_new') }}">Créer un nouvel évènement</a>#}
-        {#</li>#}
-    {#</ul>#}
-    {#<button type="button" class="btn btn-primary" data-toggle="modal"#}
-            {#data-target=".bs-example-modal-lg">Nouvel évènement#}
-    {#</button>#}
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newEvent">
         Nouvel évènement
     </button>
 
     {{ render(controller('EHSBundle:Event:new')) }}
-    {% block newEvent %}
-    {% endblock %}
 
     <table width="100%" class="table display" id="events" cellspacing="0">
         <thead>
@@ -41,16 +31,12 @@
                 <td>{% if event.endDate %}{{ event.endDate|date('d-m-Y H:i:s') }}{% endif %}</td>
                 <td>{{ event.placeNumber }}</td>
                 <td>{{ event.addInfo }}</td>
-                <td>{% if event.archived %}Yes{% else %}No{% endif %}</td>
+                <td>{% if event.archived %}Oui{% else %}Non{% endif %}</td>
                 <td>
-                    <ul>
-                        {#<li>#}
-                            {#<a href="{{ path('event_show', { 'id': event.id }) }}">détail</a>#}
-                        {#</li>#}
-                        <li>
-                            <a href="{{ path('event_edit', { 'id': event.id }) }}">Modifier</a>
-                        </li>
-                    </ul>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#{{ event.id }}">
+                        Modifier
+                    </button>
+                    {{ render(controller('EHSBundle:Event:edit', {'id': event.id})) }}
                 </td>
             </tr>
         {% endfor %}

@@ -4,7 +4,6 @@ namespace EHSBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,15 +20,9 @@ class EventType extends AbstractType
         $builder
             ->add('title', TextType::class, array('label'=> 'Titre'))
             ->add('presentation', TextareaType::class, array('label'=> 'Présentation'))
-            ->add('startDate', DateTimeType::class, array('label'=> 'Date et heure de début',
-                'data'=> new \DateTime()
-            ))
-            ->add('endDate', DateTimeType::class, array('label'=> 'Date et heure de Fin',
-                'data'=> new \DateTime()
-            ))
             ->add('placeNumber', NumberType::class, array('label' => 'Nombre de place disponible'))
             ->add('addInfo', TextareaType::class, array('label'=> 'Information complémentaire', 'required'=> false))
-//            ->add('archived')
+            ->add('archived')
 //            ->add('images')
             ->add('tags', EntityType::class, array('label'=>'tag à ajouter',
                 'class'=>'EHSBundle\Entity\Tag',
@@ -41,7 +34,6 @@ class EventType extends AbstractType
                 'class' =>'EHSBundle\Entity\Appointment',
                 'choice_label'=>'address'
             ))
-            ->setAction('new')
         ;
     }
     

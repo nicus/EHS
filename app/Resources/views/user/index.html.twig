@@ -1,33 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Users list</h1>
+    <h1>Liste des adhérants</h1>
 
-    <table>
+    <table width="100%" class="table display" id="events" cellspacing="0">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Phone</th>
-                <th>Birth</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Adhésion validé</th>
+                <th>Date de fin d'adhésion </th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.address }}</td>
                 <td>{{ user.zipCode }}</td>
                 <td>{{ user.city }}</td>
                 <td>{{ user.phone }}</td>
-                <td>{% if user.birth %}{{ user.birth|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if user.isAccepted %}Oui{% else %}Non{% endif %}</td>
+                <td>{% if user.getExpiresAt() %}{{ user.getExpiresAt|date('d/m/Y') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>
