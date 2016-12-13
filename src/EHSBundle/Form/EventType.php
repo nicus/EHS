@@ -23,7 +23,7 @@ class EventType extends AbstractType
             ->add('presentation', TextareaType::class, array('label'=> 'Présentation'))
             ->add('startDate', DateTimeType::class, array('label'=> 'Date et heure de début',
                 'data'=> new \DateTime()
-                ))
+            ))
             ->add('endDate', DateTimeType::class, array('label'=> 'Date et heure de Fin',
                 'data'=> new \DateTime()
             ))
@@ -40,7 +40,9 @@ class EventType extends AbstractType
             ->add('appointment', EntityType::class, array('label'=>'Adresse de l\'évènement',
                 'class' =>'EHSBundle\Entity\Appointment',
                 'choice_label'=>'address'
-            ))        ;
+            ))
+            ->setAction('new')
+        ;
     }
     
     /**

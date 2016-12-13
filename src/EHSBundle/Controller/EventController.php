@@ -49,7 +49,8 @@ class EventController extends Controller
             $em->persist($event);
             $em->flush($event);
 
-            return $this->redirectToRoute('event_show', array('id' => $event->getId()));
+//            return $this->redirectToRoute('event_show', array('id' => $event->getId()));
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('event/new.html.twig', array(
