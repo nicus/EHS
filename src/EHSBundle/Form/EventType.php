@@ -22,8 +22,12 @@ class EventType extends AbstractType
             ->add('presentation', TextareaType::class, array('label'=> 'Présentation'))
             ->add('placeNumber', NumberType::class, array('label' => 'Nombre de place disponible'))
             ->add('addInfo', TextareaType::class, array('label'=> 'Information complémentaire', 'required'=> false))
-            ->add('archived')
-//            ->add('images')
+            ->add('images', EntityType::class, array('label'=>'Ajouter des images', 'class'=> 'EHSBundle\Entity\Image',
+                'choice_label' => 'getOriginalName',
+                'multiple'=>true,'required'=>false))
+            ->add('newImages', new ImageType(), array(
+                'label'=>'Ajouter des images(maintenir la touche "Ctrl" pour en ajouter plusieurs)',
+                'required'=>false))
             ->add('tags', EntityType::class, array('label'=>'tag à ajouter',
                 'class'=>'EHSBundle\Entity\Tag',
                 'choice_label'=>'tag',

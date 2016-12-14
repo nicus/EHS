@@ -4,12 +4,14 @@ namespace EHSBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="EHSBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -57,6 +59,14 @@ class Image
      * @ORM\ManyToMany(targetEntity="EHSBundle\Entity\Event", mappedBy="images")
      */
     private $events;
+
+
+    private $file;
+
+    /**
+     * @var string
+     */
+    private $fileToDelete;
 
     /**
      * Image constructor.
@@ -176,6 +186,95 @@ class Image
     public function setEvents($events)
     {
         $this->events = $events;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileToDelete()
+    {
+        return $this->fileToDelete;
+    }
+
+    /**
+     * @param mixed $fileToDelete
+     */
+    public function setFileToDelete($fileToDelete)
+    {
+        $this->fileToDelete = $fileToDelete;
+    }
+
+
+
+    protected function getUploadRootDir(){
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir(){
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche le document/image dans la vue.
+        return 'uploads/images/';
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     * @ORM\PrePersist()
+     * @ORM\PreFlush()
+     */
+    public function preUpload(){
+        if (NULL === $this->file){
+            return;
+        }
+        //le nom du fichier est son id, on stock juste son extension
+        $this->extension=$this->file->getClientOriginalExtension();
+        $this->originalName=$this->file->getClientOriginalName();
+        $this->name='image';
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload(){
+        if (NULL === $this->file){
+            return;
+        }
+        // on déplace le fichier envoyé dans le répertoire d'upload
+        $this->file->move($this->getUploadRootDir(),$this->id.'.'.$this->extension);
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveUpload(){
+        $this->fileToDelete = $this->getUploadRootDir().'/'.$this->id.'.'.$this->extension;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload(){
+        //en postRemove on n'a pas accès à l'id
+        if(file_exists($this->fileToDelete)){
+            // on supprime le fichier
+            unlink($this->fileToDelete);
+        }
     }
 
 }

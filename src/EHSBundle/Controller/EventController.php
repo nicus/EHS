@@ -3,6 +3,7 @@
 namespace EHSBundle\Controller;
 
 use EHSBundle\Entity\Event;
+use EHSBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -57,6 +58,7 @@ class EventController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $event->setArchived(false);
             $em = $this->getDoctrine()->getManager();
+            $this->addImages($event);
             $em->persist($event);
             $em->flush($event);
 
@@ -98,10 +100,11 @@ class EventController extends Controller
             'action'=>$this->generateUrl('event_edit', array('id'=>$event->getId()))));
         $editForm->add('startDate', DateTimeType::class, array('label'=> 'Date et heure de début' ))
             ->add('endDate', DateTimeType::class, array('label'=> 'Date et heure de Fin' ))
-            ->add('archived', CheckboxType::class, array('label'=>'Archivé l\'évènement'));
+            ->add('archived', CheckboxType::class, array('label'=>'Archivé l\'évènement', 'required'=>false));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->addImages($event);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('event_index');
@@ -148,5 +151,25 @@ class EventController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * for Add images in new and edit Form
+     *
+     * @param Event $event
+     */
+    private function addImages(Event $event){
+        if ($event->getNewImages()->getFile()[0]){
+            $em = $this->getDoctrine()->getManager();
+            foreach ($event->getNewImages()->getFile() as $item){
+                $image= new Image();
+                $image->setFile($item);
+                $em->persist($image);
+                $listImages=$event->getImages();
+                $listImages[]=$image;
+                $event->setImages($listImages);
+            }
+
+        }
     }
 }

@@ -108,6 +108,8 @@ class Event
      */
     private $appointment;
 
+    private $newImages;
+
 
     /**
      * Event constructor.
@@ -354,5 +356,22 @@ class Event
     {
         $this->appointment = $appointment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNewImages()
+    {
+        return $this->newImages;
+    }
+
+    /**
+     * @param mixed $newImages
+     */
+    public function setNewImages($newImages)
+    {
+        $this->newImages = $newImages;
+    }
+
 
 }
