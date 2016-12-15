@@ -74,10 +74,14 @@
                 <p>Ipsum dolor tempus commodo turpis adipiscing Tempor placerat sed amet accumsan</p>
             </header>
             <ul class="actions">
-                <li><a href="#" class="button big alt">Magna feugiat</a></li>
+                <li><button type="button" class="button big alt" data-toggle="modal" data-target="#newAdhering">
+                        Adhérer à l'association
+                    </button></li>
             </ul>
         </div>
     </section>
+
+    {{ render(controller('EHSBundle:User:new')) }}
 
     <!-- Four -->
     <section id="four" class="wrapper style2 special">

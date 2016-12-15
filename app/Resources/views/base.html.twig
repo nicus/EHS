@@ -15,6 +15,10 @@
     </head>
     <body>
         {% include 'header.thml.twig' %}
+        {{ render(controller('FOSUserBundle:Security:login')) }}
+        {% if is_granted('ROLE_USER') %}
+            {{ render(controller('EHSBundle:User:edit', {'id': app.user.getId()})) }}
+        {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         {% include 'footer.html.twig' %}

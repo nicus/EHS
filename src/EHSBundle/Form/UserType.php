@@ -20,6 +20,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, array('label'=> 'Adresse e-mail'))
+            ->add('newsletter', CheckboxType::class, array('label'=> 'recevoir la newsLetter? ', 'required'=>false))
             ->add('lastname', TextType::class, array('label' => 'Nom ou Raison Sociale'))
             ->add('firstname' ,TextType::class, array('label' => 'Prénom (Facultatif si Raison Sociale'))
             ->add('address', TextType::class, array('label' => 'Adresse' ))
@@ -27,7 +28,6 @@ class UserType extends AbstractType
             ->add('city', TextType::class, array('label' => 'Ville'))
             ->add('phone' , TextType::class, array('label' => 'Téléphone'))
             ->add('birth', BirthdayType::class, array('format'=> 'dd-MM-yyyy','label' => 'Date de naissance'))
-            ->add('newsletter', CheckboxType::class, array('label'=> 'recevoir la newsLetter? '))
         ;
     }
     

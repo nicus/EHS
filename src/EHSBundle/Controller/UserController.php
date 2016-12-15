@@ -27,13 +27,16 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        if ($this->isGranted('ROLE_SUPER_ADMIN')){
+            $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('EHSBundle:User')->findAll();
+            $users = $em->getRepository('EHSBundle:User')->findAll();
 
-        return $this->render('user/index.html.twig', array(
-            'users' => $users,
-        ));
+            return $this->render('user/index.html.twig', array(
+                'users' => $users,
+            ));
+        }
+        return $this->redirectToRoute('ehs_default_index');
     }
 
     /**
@@ -46,7 +49,7 @@ class UserController extends Controller
     {
         $user = new User();
         $dispatcher = $this->get('event_dispatcher');
-        $form = $this->createForm('EHSBundle\Form\UserType', $user);
+        $form = $this->createForm('EHSBundle\Form\UserType', $user, array('action'=>$this->generateUrl('user_new')));
 
         $user->setEnabled(false);
 
@@ -81,7 +84,8 @@ class UserController extends Controller
 //
 //            return $response;
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+//            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('ehs_default_index');
         }
 
         return $this->render('user/new.html.twig', array(
@@ -142,14 +146,19 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('EHSBundle\Form\UserType', $user);
-        $editForm->handleRequest($request);
+        if ($this->isGranted('ROLE_SUPER_ADMIN') || $this->getUser()->getId()== $request->attributes->get('id')){
+            $deleteForm = $this->createDeleteForm($user);
+            $editForm = $this->createForm('EHSBundle\Form\UserType', $user, array('action'=>$this->generateUrl('user_edit',
+                array('id'=>$user->getId()))));
+            $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+                return $this->redirectToRoute('ehs_default_index');
+            }
+        }else{
+            return $this->redirectToRoute('ehs_default_index');
         }
 
         return $this->render('user/edit.html.twig', array(
@@ -167,13 +176,15 @@ class UserController extends Controller
      */
     public function deleteAction(Request $request, User $user)
     {
-        $form = $this->createDeleteForm($user);
-        $form->handleRequest($request);
+        if ($this->isGranted('ROLE_SUPER_ADMIN')){
+            $form = $this->createDeleteForm($user);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush($user);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($user);
+                $em->flush($user);
+            }
         }
 
         return $this->redirectToRoute('user_index');

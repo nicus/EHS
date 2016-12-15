@@ -1,56 +1,78 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block body %}
-    <h1>User</h1>
+{#{% block body %}#}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ user.address }}</td>
-            </tr>
-            <tr>
-                <th>Zipcode</th>
-                <td>{{ user.zipCode }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ user.city }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-            <tr>
-                <th>Birth</th>
-                <td>{% if user.birth %}{{ user.birth|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+<!-- Modal -->
+<div class="modal fade" id="show{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Détail</h4>
+            </div>
+            <div class="modal-body">
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ user.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code postal</th>
+                        <td>{{ user.zipCode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ user.city }}</td>
+                    </tr>
+                    <tr>
+                        <th>Téléphone</th>
+                        <td>{{ user.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age</th>
+                        {% set age= (date()|date('Y'))-(user.birth|date('Y')) %}
+                        {% if (date()|date('md'))<(user.birth|date('md')) %}
+                            {% set age=age-1 %}
+                        {% endif %}
+                        <td>{% if user.birth %}{{ age~' ' }}ans{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Adhésion Validé</th>
+                        <td>{% if user.accepted %} Oui {% else %} Non {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de Fin d'ahdésion</th>
+                        <td>{% if user.expiresAt %}{{ user.expiresAt|date('d/m/Y') }} {% endif %}</td>
+                    </tr>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <tr>
+                            <th>Rôle de l'adhérant</th>
+                            <td>{{ user.getRoles[0] }}</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            {#<button type="button" class="btn btn-primary">Save changes</button>#}
+            </div>
+        </div>
+    </div>
+</div>
+
+    {#<h1>User</h1>#}
+
+   {##}
+{#{% endblock %}#}

@@ -17,17 +17,28 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class="active"><a href="{{ path('ehs_default_index') }}">Accueil</a></li>
                     <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    {% if is_granted('ROLE_USER') %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Themes <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-header">Admin & dashBord</li>
-                            <li><a href="#">Admin1</a></li>
+                            {#<li class="dropdown-header">Admin & dashBord</li>#}
+                            <li><a href=""
+                                   data-toggle="modal" data-target="#edit{{ app.user.getId() }}">Edition du profil</a></li>
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <li><a href="{{ path('user_index') }}">Gestion des adhérents</a></li>
+                            {% endif %}
                             <li><a href="#">Admin2</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                    {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                        <li><button type="button" class="btn navbar-btn" data-toggle="modal" data-target="#login">
+                                Login
+                            </button></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

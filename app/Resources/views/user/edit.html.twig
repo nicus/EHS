@@ -1,21 +1,53 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
-{% block body %}
-    <h1>User edit</h1>
+{#{% block body %}#}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+<!-- Modal -->
+<div class="modal fade" id="edit{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edition du profil</h4>
+            </div>
+            <div class="modal-body">
+                {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <label>Expiration de l'adhésion</label>
+                {% if user.expiresAt %}{{ user.expiresAt|date('d/m/Y') }} {% endif %}
+                <input type="submit" value="Modifier" />
+                {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+                {% if app.user.getId() == user.id %}
+                    {{ render(controller(
+                    'FOSUserBundle:ChangePassword:changePassword'
+                    )) }}
+                {% endif %}
+            </div>
+            {#<div class="modal-footer">#}
+            {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+            {#<button type="button" class="btn btn-primary">Save changes</button>#}
+            {#</div>#}
+        </div>
+    </div>
+</div>
+
+    {#<h1>User edit</h1>#}
+
+    {#{{ form_start(edit_form) }}#}
+        {#{{ form_widget(edit_form) }}#}
+        {#<input type="submit" value="Edit" />#}
+    {#{{ form_end(edit_form) }}#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('user_index') }}">Back to the list</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#{{ form_start(delete_form) }}#}
+                {#<input type="submit" value="Delete">#}
+            {#{{ form_end(delete_form) }}#}
+        {#</li>#}
+    {#</ul>#}
+{#{% endblock %}#}

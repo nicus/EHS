@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des adhérants</h1>
+    <h1>Liste des adhérents</h1>
 
     <table width="100%" class="table display" id="events" cellspacing="0">
         <thead>
@@ -29,26 +29,27 @@
                 <td>{% if user.isAccepted %}Oui{% else %}Non{% endif %}</td>
                 <td>{% if user.getExpiresAt() %}{{ user.getExpiresAt|date('d/m/Y') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_accept', {'id': user.id}) }}">Accept</a>
-                        </li>
-                    </ul>
+                    <button type="button" class="btn badge" data-toggle="modal" data-target="#show{{ user.id }}">
+                        Voir
+                    </button>
+                    {{ render(controller('EHSBundle:User:show', {'id': user.id})) }}
+                    <button type="button" class="btn badge" data-toggle="modal" data-target="#edit{{ user.id }}">
+                        Modifier
+                    </button>
+                    {{ render(controller('EHSBundle:User:edit', {'id': user.id})) }}
+
+                    <button role="button" class="btn badge"
+                            onclick=(document.location.href="{{ path('user_accept', {'id': user.id}) }}")>
+                        Accepter l'adhésion</button>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('user_new') }}">Create a new user</a>#}
+        {#</li>#}
+    {#</ul>#}
 {% endblock %}
