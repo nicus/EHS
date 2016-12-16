@@ -6,6 +6,10 @@
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newEvent">
         Nouvel évènement
     </button>
+    <button type="button" class="btn btn-primary btn-lg"
+            onclick=(document.location.href="{{ path('appointment_index') }}")>
+       liste des adresses
+    </button>
 
     {{ render(controller('EHSBundle:Event:new')) }}
 
@@ -27,13 +31,13 @@
             <tr>
                 <td>{{ event.title }}</td>
                 <td>{{ event.presentation }}</td>
-                <td>{% if event.startDate %}{{ event.startDate|date('d-m-Y H:i:s') }}{% endif %}</td>
-                <td>{% if event.endDate %}{{ event.endDate|date('d-m-Y H:i:s') }}{% endif %}</td>
+                <td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if event.endDate %}{{ event.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ event.placeNumber }}</td>
                 <td>{{ event.addInfo }}</td>
                 <td>{% if event.archived %}Oui{% else %}Non{% endif %}</td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#{{ event.id }}">
+                    <button type="button" class="btn badge" data-toggle="modal" data-target="#{{ event.id }}">
                         Modifier
                     </button>
                     {{ render(controller('EHSBundle:Event:edit', {'id': event.id})) }}

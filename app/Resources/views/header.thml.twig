@@ -18,8 +18,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="{{ path('ehs_default_index') }}">Accueil</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">L'association</a></li>
+                    <li><a href="{{ path('event_frontShow') }}">Les évènements</a></li>
                     {% if is_granted('ROLE_USER') %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gestion <b class="caret"></b></a>
@@ -29,6 +29,7 @@
                                    data-toggle="modal" data-target="#edit{{ app.user.getId() }}">Edition du profil</a></li>
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
                                 <li><a href="{{ path('user_index') }}">Gestion des adhérents</a></li>
+                                <li><a href="{{ path('event_index') }}">Gestion des évènements</a></li>
                             {% endif %}
                             <li><a href="#">Admin2</a></li>
                         </ul>

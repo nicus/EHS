@@ -40,7 +40,10 @@ class AppointmentController extends Controller
     public function newAction(Request $request)
     {
         $appointment = new Appointment();
-        $form = $this->createForm('EHSBundle\Form\AppointmentType', $appointment);
+        $form = $this->createForm('EHSBundle\Form\AppointmentType', $appointment
+            , array(
+                'action'=>$this->generateUrl('appointment_new')
+            ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,13 +85,15 @@ class AppointmentController extends Controller
     public function editAction(Request $request, Appointment $appointment)
     {
         $deleteForm = $this->createDeleteForm($appointment);
-        $editForm = $this->createForm('EHSBundle\Form\AppointmentType', $appointment);
+        $editForm = $this->createForm('EHSBundle\Form\AppointmentType', $appointment
+            , array(
+                'action'=>$this->generateUrl('appointment_edit', array('id'=>$appointment->getId()))));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('appointment_edit', array('id' => $appointment->getId()));
+            return $this->redirectToRoute('appointment_index');
         }
 
         return $this->render('appointment/edit.html.twig', array(

@@ -108,7 +108,15 @@ class Event
      */
     private $appointment;
 
+    /**
+     * add new images in images
+     */
     private $newImages;
+
+    /**
+     * add new address in appointment
+     */
+    private $newAdress;
 
 
     /**
@@ -371,6 +379,22 @@ class Event
     public function setNewImages($newImages)
     {
         $this->newImages = $newImages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNewAdress()
+    {
+        return $this->newAdress;
+    }
+
+    /**
+     * @param mixed $newAdress
+     */
+    public function setNewAdress($newAdress)
+    {
+        $this->newAdress = $newAdress;
     }
 
 

@@ -38,6 +38,7 @@ class EventType extends AbstractType
                 'class' =>'EHSBundle\Entity\Appointment',
                 'choice_label'=>'address'
             ))
+            ->add('newAdress', new AppointmentType(), array('label'=> 'Ajouter une nouvelle adresse', 'required'=>false))
         ;
     }
     

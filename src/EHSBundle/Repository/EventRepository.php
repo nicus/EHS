@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventRepository extends EntityRepository
 {
+    public function getNoArchivedEvents(){
+        $em=$this->getEntityManager();
+        $query= $em->createQuery('SELECT e FROM EHSBundle\\Entity\\Event e 
+                                  WHERE e.archived=0 ORDER BY e.startDate DESC ');
+        $listEvents= $query->getResult();
+        return $listEvents;
+    }
+
 }

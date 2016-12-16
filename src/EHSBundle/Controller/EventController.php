@@ -26,13 +26,27 @@ class EventController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        if ($this->isGranted('ROLE_ADMIN')){
+            $em = $this->getDoctrine()->getManager();
 
-        $events = $em->getRepository('EHSBundle:Event')->findAll();
+            $events = $em->getRepository('EHSBundle:Event')->findAll();
 
-        return $this->render('event/index.html.twig', array(
-            'events' => $events,
-        ));
+            return $this->render('event/index.html.twig', array(
+                'events' => $events,
+            ));
+        }
+        return $this->redirectToRoute('ehs_default_index');
+    }
+
+    /**
+     * @Route("/listEvent", name="event_frontShow")
+     * @Method("GET")
+     */
+    public function frontShowAction(){
+        $em= $this->getDoctrine()->getManager();
+        $listEvents = $em->getRepository('EHSBundle:Event')->getNoArchivedEvents();
+
+        return $this->render('event/frontShow.html.twig', array('events'=>$listEvents));
     }
 
     /**
@@ -59,6 +73,10 @@ class EventController extends Controller
             $event->setArchived(false);
             $em = $this->getDoctrine()->getManager();
             $this->addImages($event);
+            if ($event->getNewAdress()){
+                $em->persist(($event->getNewAdress()));
+                $event->setAppointment($event->getNewAdress());
+            }
             $em->persist($event);
             $em->flush($event);
 
