@@ -63,6 +63,11 @@ class EventInscription
      */
     private $validated;
 
+    /**
+     * Event id
+     */
+    private $event;
+
 
     /**
      * Get id
@@ -211,4 +216,21 @@ class EventInscription
     {
         return $this->validated;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param mixed $event
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+    }
+
 }

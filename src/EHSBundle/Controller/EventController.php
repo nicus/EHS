@@ -3,6 +3,7 @@
 namespace EHSBundle\Controller;
 
 use EHSBundle\Entity\Event;
+use EHSBundle\Entity\EventInscription;
 use EHSBundle\Entity\Image;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -90,6 +91,34 @@ class EventController extends Controller
     }
 
     /**
+     *
+     * @Route("/registeredList/{id}", name="event_registered_list")
+     */
+    public function registeredListAction(Event $event){
+        $registeredList= $event->getInscriptions();
+
+        return $this->render('event/registeredList.html.twig', array(
+            'registeredList'=> $registeredList,
+            'event'=>$event));
+    }
+
+    /**
+     * for delete one inscription in EventInscription
+     * @Route("/delinscription/{event}/{eventInscription}", name="event_delInscription")
+     * @Method("GET")
+     */
+    public function delEventInscriptionAction(Event $event, EventInscription $eventInscription){
+        $listInscriptions = $event->getInscriptions();
+        $listInscriptions->removeElement($eventInscription);
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($event);
+        $em->flush();
+        $em->getRepository('EHSBundle:EventInscription')->delInscription($eventInscription->getId());
+
+        return $this->redirectToRoute('event_registered_list', array('id'=>$event->getId()));
+    }
+
+    /**
      * Finds and displays a event entity.
      *
      * @Route("/{id}", name="event_show")
@@ -97,12 +126,20 @@ class EventController extends Controller
      */
     public function showAction(Event $event)
     {
-        $deleteForm = $this->createDeleteForm($event);
+        if  (!$event->getArchived() ||($event->getArchived()&& $this->isGranted('ROLE_PRESS'))){
+            $deleteForm = $this->createDeleteForm($event);
+            $url = $this->container->get('request')->headers->get('referer');
+            if (empty($url)) {
+                $url = $this->container->get('router')->generate('event_frontShow');
+            }
 
-        return $this->render('event/show.html.twig', array(
-            'event' => $event,
-            'delete_form' => $deleteForm->createView(),
-        ));
+            return $this->render('event/show.html.twig', array(
+                'bachUrl'=>$url,
+                'event' => $event,
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
+        return $this->redirectToRoute('event_frontShow');
     }
 
     /**

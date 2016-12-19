@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table width="100%" class="table display" id="events" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Numéro de téléphone</th>
+            <th>Adresse email</th>
+            <th>Personne à mobilité réduite</th>
+            <th>inscription validé</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for registered in registeredList  %}
+            <tr>
+                <td>{{ registered.getLastname() }}</td>
+                <td>{{ registered.getFirstname() }}</td>
+                <td>{{ registered.getPhone() }}</td>
+                <td>{{ registered.getEmail() }}</td>
+                <td>{% if registered.getMobility() %} Oui {% else %} Non {% endif %}</td>
+                <td>{% if registered.getValidated %}
+                        <input type="checkbox" id="{{ registered.getId() }}" name="validate" checked>
+                    {% else %}
+                        <input type="checkbox" id="{{ registered.getId() }}" name="validate">
+                    {% endif %}</td>
+                <td><a href="{{ path('event_delInscription',
+                    {'event':event.id, 'eventInscription':registered.getId()}) }}" class="btn badge">supprimer</a></td>
+            </tr>
+            
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+    <script>
+        var validated= document.querySelectorAll('input[name=validate]');
+        for(var ii=0;ii<validated.length;ii++){
+            validated[ii].addEventListener('click', function () {
+                var data = "value="+this.checked+"&id="+this.id;
+                var xhr= new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.open('POST', '../eventinscription/validated');
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                xhr.send(data);
+            });
+        }
+
+
+    </script>
+{% endblock %}

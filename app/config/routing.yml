@@ -1,3 +1,8 @@
+ehs_event_inscription:
+    resource: "@EHSBundle/Controller/EventInscriptionController.php"
+    type:     annotation
+    prefix: /event/
+
 ehs_tag:
     resource: "@EHSBundle/Controller/TagController.php"
     type:     annotation
@@ -15,7 +20,7 @@ ehs_user:
     type:     annotation
 
 ehs:
-    resource: "@EHSBundle/Controller/"
+    resource: "@EHSBundle/Controller/DefaultController.php"
     type:     annotation
     prefix:   /
 

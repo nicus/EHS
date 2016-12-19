@@ -1,72 +1,85 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% set dispo = event.placeNumber - event.inscriptions|length %}
     <section id="main" class="wrapper">
+        {% set results = app.request.query %}
+        {% for key in results|keys %}
+            {% if key == 'message' %}
+                <div id="message"><h4>Votre inscription a bien été prise enregistré</h4></div>
+            {% endif %}
+        {% endfor %}
         <div class="container">
 
+            <ul class="actions">
+                {% if dispo %}
+                    <li>
+                        <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
+                            s'inscrire à l'événement
+                        </button>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ bachUrl }}" class="button alt">retour</a>
+                </li>
+            </ul>
+            {{ render(controller('EHSBundle:EventInscription:new', {'event': event.id})) }}
             <header class="major special">
-                <h2>Generic</h2>
-                <p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+                <h2>{{ event.title }}</h2>
+                <h5>(
+                    {% for tag in event.getTags() %}
+                        {% if loop.index == loop.last %}
+                            {{ tag.tag }}
+                            {% else %}
+                                {{ tag.tag~', ' }}
+                        {% endif %}
+                    {% endfor %}
+                    )</h5>
             </header>
 
-            <a href="#" class="image fit"><img src="images/pic11.jpg" alt="" /></a>
-            <p>Vis accumsan feugiat adipiscing nisl amet adipiscing accumsan blandit accumsan sapien blandit ac amet faucibus aliquet placerat commodo. Interdum ante aliquet commodo accumsan vis phasellus adipiscing. Ornare a in lacinia. Vestibulum accumsan ac metus massa tempor. Accumsan in lacinia ornare massa amet. Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan.</p>
-            <p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet Ac interdum ac non praesent. Cubilia lacinia interdum massa faucibus blandit nullam. Accumsan phasellus nunc integer. Accumsan euismod nunc adipiscing lacinia erat ut sit. Arcu amet. Id massa aliquet arcu accumsan lorem amet accumsan commodo odio cubilia ac eu interdum placerat placerat arcu commodo lobortis adipiscing semper ornare pellentesque.</p>
-            <p>Amet nibh adipiscing adipiscing. Commodo ante vis placerat interdum massa massa primis. Tempus condimentum tempus non ac varius cubilia adipiscing placerat lorem turpis at. Aliquet lorem porttitor interdum. Amet lacus. Aliquam lobortis faucibus blandit ac phasellus. In amet magna non interdum volutpat porttitor metus a ante ac neque. Nisi turpis. Commodo col. Interdum adipiscing mollis ut aliquam id ante adipiscing commodo integer arcu amet blandit adipiscing arcu ante.</p>
+            {% if event.images %}
+                <div class="box alt">
+                    <div class="row 50% uniform">
+                        <div class="12u$">
+                        <span class="image fit"><img
+                                    src="{{ asset('uploads/images/'~event.images[0].getId()~'.'~event.images[0].getExtension()) }}"
+                                    alt="{{ event.images[0].getOriginalName() }}" /></span></div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <p>{{ event.presentation }}</p>
+
+            <p>{{ event.addInfo }}</p>
+
+            <h2>L'événement se déroulera du {{ event.startDate|date('d-m-Y à h:i') }} au
+                {{ event.endDate|date('d-m-Y à h:i') }}</h2>
+            <h3> à l'adresse {{ event.appointment.getAddress }} {{ event.appointment.getZipCode() }}
+            {{ event.appointment.getCity() }}</h3>
+
+            <p>{{ event.appointment.getAddInfo() }}</p>
+
+            {% if dispo %}
+                {% if dispo ==1 %}
+                    <h4>il ne reste plus qu'une seule place de disponible.</h4>
+                {% else %}
+                <h4>Il reste {{ dispo }} places de disponibles</h4>
+                {% endif %}
+                <ul class="actions">
+                        <li>
+                            <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
+                                s'inscrire à l'événement
+                            </button>
+                        </li>
+                    <li>
+                        <a href="{{ bachUrl }}" class="button alt">retour</a>
+                    </li>
+                </ul>
+            {% else %}
+                <h4>Nous sommes désolé, il n'y a plus de place disponible pour cette événement.</h4>
+            {% endif %}
+
 
         </div>
     </section>
-
-    {#<h1>Event</h1>#}
-
-    {#<table>#}
-        {#<tbody>#}
-            {#<tr>#}
-                {#<th>Id</th>#}
-                {#<td>{{ event.id }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Title</th>#}
-                {#<td>{{ event.title }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Presentation</th>#}
-                {#<td>{{ event.presentation }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Startdate</th>#}
-                {#<td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Enddate</th>#}
-                {#<td>{% if event.endDate %}{{ event.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Placenumber</th>#}
-                {#<td>{{ event.placeNumber }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Addinfo</th>#}
-                {#<td>{{ event.addInfo }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Archived</th>#}
-                {#<td>{% if event.archived %}Yes{% else %}No{% endif %}</td>#}
-            {#</tr>#}
-        {#</tbody>#}
-    {#</table>#}
-
-    {#<ul>#}
-        {#<li>#}
-            {#<a href="{{ path('event_index') }}">Back to the list</a>#}
-        {#</li>#}
-        {#<li>#}
-            {#<a href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>#}
-        {#</li>#}
-        {#<li>#}
-            {#{{ form_start(delete_form) }}#}
-                {#<input type="submit" value="Delete">#}
-            {#{{ form_end(delete_form) }}#}
-        {#</li>#}
-    {#</ul>#}
 {% endblock %}

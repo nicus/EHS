@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventInscriptionRepository extends EntityRepository
 {
+    public function delInscription($id){
+        $em= $this->getEntityManager();
+        $query = $em->createQuery('DELETE FROM EHSBundle\\Entity\\EventInscription e WHERE e.id= :id ')
+            ->setParameter('id', $id);
+        $query->execute();
+
+    }
 }

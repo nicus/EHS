@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Eventinscriptions list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Mobility</th>
+                <th>Validated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eventInscription in eventInscriptions %}
+            <tr>
+                <td><a href="{{ path('eventinscription_show', { 'id': eventInscription.id }) }}">{{ eventInscription.id }}</a></td>
+                <td>{{ eventInscription.lastname }}</td>
+                <td>{{ eventInscription.firstname }}</td>
+                <td>{{ eventInscription.phone }}</td>
+                <td>{{ eventInscription.email }}</td>
+                <td>{% if eventInscription.mobility %}Yes{% else %}No{% endif %}</td>
+                <td>{% if eventInscription.validated %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('eventinscription_show', { 'id': eventInscription.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('eventinscription_edit', { 'id': eventInscription.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('eventinscription_new') }}">Create a new eventInscription</a>
+        </li>
+    </ul>
+{% endblock %}

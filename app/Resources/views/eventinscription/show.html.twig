@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Eventinscription</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ eventInscription.id }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ eventInscription.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ eventInscription.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ eventInscription.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ eventInscription.email }}</td>
+            </tr>
+            <tr>
+                <th>Mobility</th>
+                <td>{% if eventInscription.mobility %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Validated</th>
+                <td>{% if eventInscription.validated %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('eventinscription_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('eventinscription_edit', { 'id': eventInscription.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
