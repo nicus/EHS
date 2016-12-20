@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Newsletterreceivers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for newsletterReceiver in newsletterReceivers %}
+            <tr>
+                <td><a href="{{ path('newsletterreceiver_show', { 'id': newsletterReceiver.id }) }}">{{ newsletterReceiver.id }}</a></td>
+                <td>{{ newsletterReceiver.email }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('newsletterreceiver_show', { 'id': newsletterReceiver.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('newsletterreceiver_edit', { 'id': newsletterReceiver.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('newsletterreceiver_new') }}">Create a new newsletterReceiver</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -19,6 +19,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, array('label'=> 'Titre'))
+            ->add('header', TextareaType::class, array('label'=>'en-tête', 'required'=>false))
             ->add('presentation', TextareaType::class, array('label'=> 'Présentation'))
             ->add('placeNumber', NumberType::class, array('label' => 'Nombre de place disponible'))
             ->add('addInfo', TextareaType::class, array('label'=> 'Information complémentaire', 'required'=> false))

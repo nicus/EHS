@@ -2,6 +2,7 @@
 
 namespace EHSBundle\Controller;
 
+use EHSBundle\Entity\NewsletterReceiver;
 use EHSBundle\Entity\User;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -9,6 +10,7 @@ use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -67,6 +69,7 @@ class UserController extends Controller
             $user->setUsername($user->getEmail());
             $user->setPlainPassword('P@ssword95+ùHsbT&');
             $user->setAccepted(false);
+            $this->manageNewsletter($user);
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
@@ -80,11 +83,6 @@ class UserController extends Controller
                 $response = new RedirectResponse($url);
             }
 
-//            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-//
-//            return $response;
-
-//            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
             return $this->redirectToRoute('ehs_default_index');
         }
 
@@ -150,12 +148,21 @@ class UserController extends Controller
             $deleteForm = $this->createDeleteForm($user);
             $editForm = $this->createForm('EHSBundle\Form\UserType', $user, array('action'=>$this->generateUrl('user_edit',
                 array('id'=>$user->getId()))));
+            if ($this->isGranted('ROLE_SUPER_ADMIN')){
+                $editForm->add('roles', ChoiceType::class, array('choices'=>array(
+                    'role_user'=>'Adhérent',
+                    'role_press'=>'Presse',
+                    'role_admin'=>'Modérateur',
+                    'role_super_admin'=>'Administrateur'
+                ), 'required'=>false, 'multiple'=>true));
+            }
             $editForm->handleRequest($request);
 
             if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->manageNewsletter($user);
                 $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('ehs_default_index');
+                return $this->redirectToRoute('user_index');
             }
         }else{
             return $this->redirectToRoute('ehs_default_index');
@@ -204,5 +211,22 @@ class UserController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function manageNewsletter(User $user){
+        $em = $this->getDoctrine()->getManager();
+        if ($user->isNewsletter()){
+            $verif = $em->getRepository('EHSBundle:NewsletterReceiver')
+                ->findOneBy(array('email'=>$user->getEmail()));
+            if (!$verif){
+                $newsletterReceiver = new NewsletterReceiver();
+                $newsletterReceiver->setEmail($user->getEmail());
+                $em->persist($newsletterReceiver);
+                $em->flush();
+            }
+
+        }else{
+            $em->getRepository('EHSBundle:NewsletterReceiver')->delInscription($user->getEmail());
+        }
     }
 }

@@ -32,7 +32,14 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="presentation", type="text")
+     * @ORM\Column(name="header", type="text")
+     */
+    private $header;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="presentation", type="text", nullable=true)
      */
     private $presentation;
 
@@ -396,6 +403,23 @@ class Event
     {
         $this->newAdress = $newAdress;
     }
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+    }
+
 
 
 }

@@ -78,8 +78,20 @@
             {% else %}
                 <h4>Nous sommes désolé, il n'y a plus de place disponible pour cette événement.</h4>
             {% endif %}
+            {% if event.images %}
+                <div class="box alt">
+                    <div class="row 50% uniform">
+                        {% for image in event.images %}
+                            {% set class='4u' %}
+                        {% if loop.index is divisible by(3) %} {% set class= '4u$' %}{% endif %}
+                            <div class="{{ class }}"><span class="image fit">
+                                    <img alt="{{ image.getOriginalName() }}"
+                                         src="{{ asset('uploads/images/'~image.getId()~'.'~image.getExtension()) }}"></span></div>
 
-
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

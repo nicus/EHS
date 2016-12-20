@@ -20,4 +20,15 @@ class EventRepository extends EntityRepository
         return $listEvents;
     }
 
+    public function getNextEvent(){
+        $now= new \DateTime();
+        $em=$this->getEntityManager();
+        $query= $em->createQuery('SELECT e FROM EHSBundle\\Entity\\Event e WHERE e.startDate > :now
+                                  ORDER BY e.startDate ASC')
+            ->setMaxResults(1)
+            ->setParameter('now', $now);
+        $results = $query->getOneOrNullResult();
+
+        return $results;
+    }
 }

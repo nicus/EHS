@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Titre</th>
+                <th>En-tête</th>
                 <th>Présentation</th>
                 <th>Date et heure de début</th>
                 <th>Date et heure de fin</th>
@@ -30,6 +31,7 @@
         {% for event in events %}
             <tr>
                 <td>{{ event.title }}</td>
+                <td>{{ event.header }}</td>
                 <td>{{ event.presentation }}</td>
                 <td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if event.endDate %}{{ event.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>

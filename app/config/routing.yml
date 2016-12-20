@@ -1,3 +1,12 @@
+ehs_program:
+    resource: "@EHSBundle/Controller/ProgramController.php"
+    type:     annotation
+    prefix: /event/
+
+ehs_newsletter_receiver:
+    resource: "@EHSBundle/Controller/NewsletterReceiverController.php"
+    type:     annotation
+
 ehs_event_inscription:
     resource: "@EHSBundle/Controller/EventInscriptionController.php"
     type:     annotation

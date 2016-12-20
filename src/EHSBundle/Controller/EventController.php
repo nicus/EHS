@@ -91,6 +91,21 @@ class EventController extends Controller
     }
 
     /**
+     * Get the next event
+     *
+     * @Route("/next", name="event_next")
+     * @Method("GET")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function nextEventAction(){
+        $em = $this->getDoctrine()->getManager();
+        $nextEvent=$em->getRepository('EHSBundle:Event')->getNextEvent();
+
+        return $this->render(':event:nextEvent.html.twig', array('nextEvent'=>$nextEvent));
+    }
+
+    /**
      *
      * @Route("/registeredList/{id}", name="event_registered_list")
      */
