@@ -116,6 +116,14 @@ class Event
     private $appointment;
 
     /**
+     * program event
+     *
+     * @ORM\ManyToOne(targetEntity="EHSBundle\Entity\Program")
+     * @ORM\JoinColumn(name="program_id", referencedColumnName="id")
+     */
+    private $program;
+
+    /**
      * add new images in images
      */
     private $newImages;
@@ -420,6 +428,20 @@ class Event
         $this->header = $header;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProgram()
+    {
+        return $this->program;
+    }
 
+    /**
+     * @param mixed $program
+     */
+    public function setProgram($program)
+    {
+        $this->program = $program;
+    }
 
 }

@@ -82,13 +82,15 @@ class ProgramController extends Controller
     public function editAction(Request $request, Program $program)
     {
         $deleteForm = $this->createDeleteForm($program);
-        $editForm = $this->createForm('EHSBundle\Form\ProgramType', $program);
+        $editForm = $this->createForm('EHSBundle\Form\ProgramType', $program, array(
+            'action'=>$this->generateUrl('program_edit', array('id'=>$program->getId()))
+        ));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('program_edit', array('id' => $program->getId()));
+            return $this->redirectToRoute('event_index');
         }
 
         return $this->render('program/edit.html.twig', array(

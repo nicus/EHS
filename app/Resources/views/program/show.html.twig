@@ -1,32 +1,16 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Program</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ program.id }}</td>
-            </tr>
-            <tr>
-                <th>Program</th>
-                <td>{{ program.program }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('program_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('program_edit', { 'id': program.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+<div class="modal fade" id="program{{ program.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Programme <h5>(sous réserve de modification)</h5></h4>
+            </div>
+            <div class="modal-body" id="program">
+                <p>{{ program.program|nl2br }}</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="button" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

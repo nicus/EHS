@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {{ render(controller('EHSBundle:EventInscription:new', {'event': event.id})) }}
+    {{ render(controller('EHSBundle:Program:show', {'id': event.program.id})) }}
+
     {% set dispo = event.placeNumber - event.inscriptions|length %}
     <section id="main" class="wrapper">
         {% set results = app.request.query %}
@@ -11,11 +14,17 @@
         {% endfor %}
         <div class="container">
 
-            <ul class="actions">
+            <ul class="actions event">
                 {% if dispo %}
                     <li>
                         <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
                             s'inscrire à l'événement
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="button special" data-toggle="modal"
+                                data-target="#program{{ event.program.id }}">
+                            Voir le programme
                         </button>
                     </li>
                 {% endif %}
@@ -23,8 +32,8 @@
                     <a href="{{ bachUrl }}" class="button alt">retour</a>
                 </li>
             </ul>
-            {{ render(controller('EHSBundle:EventInscription:new', {'event': event.id})) }}
-            <header class="major special">
+
+            <header class="major special event">
                 <h2>{{ event.title }}</h2>
                 <h5>(
                     {% for tag in event.getTags() %}
@@ -48,16 +57,16 @@
                 </div>
             {% endif %}
 
-            <p>{{ event.presentation }}</p>
+            <p class="event">{{ event.presentation }}</p>
 
-            <p>{{ event.addInfo }}</p>
+            <p class="event">{{ event.addInfo }}</p>
 
-            <h2>L'événement se déroulera du {{ event.startDate|date('d-m-Y à h:i') }} au
+            <h2 class="event">L'événement se déroulera du {{ event.startDate|date('d-m-Y à h:i') }} au
                 {{ event.endDate|date('d-m-Y à h:i') }}</h2>
             <h3> à l'adresse {{ event.appointment.getAddress }} {{ event.appointment.getZipCode() }}
             {{ event.appointment.getCity() }}</h3>
 
-            <p>{{ event.appointment.getAddInfo() }}</p>
+            <p class="event">{{ event.appointment.getAddInfo() }}</p>
 
             {% if dispo %}
                 {% if dispo ==1 %}
@@ -65,16 +74,26 @@
                 {% else %}
                 <h4>Il reste {{ dispo }} places de disponibles</h4>
                 {% endif %}
-                <ul class="actions">
+
+                <ul class="actions event">
+                    {% if dispo %}
                         <li>
                             <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
                                 s'inscrire à l'événement
                             </button>
                         </li>
+                        <li>
+                            <button type="button" class="button special" data-toggle="modal"
+                                    data-target="#program{{ event.program.id }}">
+                                Voir le programme
+                            </button>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="{{ bachUrl }}" class="button alt">retour</a>
                     </li>
                 </ul>
+
             {% else %}
                 <h4>Nous sommes désolé, il n'y a plus de place disponible pour cette événement.</h4>
             {% endif %}

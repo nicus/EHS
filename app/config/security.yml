@@ -45,3 +45,5 @@ security:
         - { path: ^/event/new, role: ROLE_ADMIN }
         - { path: ^/event/registeredList, role: ROLE_ADMIN }
         - { path: ^/event/eventinscription/validated, role: ROLE_ADMIN }
+        - { path: ^/event/program/new, role: ROLE_ADMIN }
+        - { path: ^/event/program/[0-9]+/edit, role: ROLE_ADMIN }

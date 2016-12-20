@@ -5,6 +5,7 @@ namespace EHSBundle\Controller;
 use EHSBundle\Entity\Event;
 use EHSBundle\Entity\EventInscription;
 use EHSBundle\Entity\Image;
+use EHSBundle\Entity\Program;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -71,8 +72,11 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $program = new Program();
+            $event->setProgram($program);
             $event->setArchived(false);
             $em = $this->getDoctrine()->getManager();
+            $em->persist($event->getProgram());
             $this->addImages($event);
             if ($event->getNewAdress()){
                 $em->persist(($event->getNewAdress()));
