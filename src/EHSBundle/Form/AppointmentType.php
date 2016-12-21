@@ -16,7 +16,8 @@ class AppointmentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('address', TextType::class, array('label'=>'Adresse'))
+        $builder->add('appointment', TextType::class, array('label'=>'Nom du lieu') )
+            ->add('address', TextType::class, array('label'=>'Adresse'))
             ->add('zipCode', NumberType::class, array('label'=>'Code postal'))
             ->add('city', TextType::class, array('label'=>'Ville'))
             ->add('addInfo', TextareaType::class, array('label'=>'information complémentaire'))

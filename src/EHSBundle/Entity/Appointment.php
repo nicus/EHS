@@ -24,6 +24,13 @@ class Appointment
     /**
      * @var string
      *
+     * @ORM\Column(name="appointment", type="string", length=255)
+     */
+    private $appointment;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
@@ -58,6 +65,22 @@ class Appointment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAppointment()
+    {
+        return $this->appointment;
+    }
+
+    /**
+     * @param string $appointment
+     */
+    public function setAppointment($appointment)
+    {
+        $this->appointment = $appointment;
     }
 
     /**

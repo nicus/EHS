@@ -77,11 +77,13 @@ class EventController extends Controller
             $event->setArchived(false);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event->getProgram());
+//            $em->flush();
             $this->addImages($event);
             if ($event->getNewAdress()){
                 $em->persist(($event->getNewAdress()));
                 $event->setAppointment($event->getNewAdress());
             }
+//            var_dump($event);die();
             $em->persist($event);
             $em->flush($event);
 

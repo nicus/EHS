@@ -1,10 +1,22 @@
-<section id="banner" style="background-image: url({{ asset('uploads/images/'~nextEvent.getImages[0].getId()
-~'.'~nextEvent.getImages[0].getExtension()) }}">
-    {#<img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo ehs">#}
-    <h2>{{ nextEvent.title }}</h2>
-    <p>{{ nextEvent.presentation }}</p>
-    <ul class="actions">
-        <li><a href="{{ path('event_show', {'id': nextEvent.getId()}) }}" class="button big special">Voir plus</a></li>
-    </ul>
+{% if nextEvent %}
+    {% if nextEvent.getImages|first %}
+    {% set image= nextEvent.getImages|first %}
+        <section id="banner" style="background-image:
+        url({{ asset('uploads/images/'~image.getId()~'.'~image.getExtension()) }}">
+    {% else %}
+        <section id="banner">
+    {% endif %}
+        {#<img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo ehs">#}
+        <h2>{{ nextEvent.title }}</h2>
+        <p>{{ nextEvent.presentation }}</p>
+        <ul class="actions">
+            <li><a href="{{ path('event_show', {'id': nextEvent.getId()}) }}" class="button big special">Voir plus</a></li>
+        </ul>
 
-</section>
+    </section>
+{% else %}
+    <section id="banner">
+        <img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo ehs">
+
+    </section>
+{% endif %}

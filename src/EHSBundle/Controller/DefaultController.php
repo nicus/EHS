@@ -14,4 +14,14 @@ class DefaultController extends Controller
     {
         return $this->render(':default:index.html.twig');
     }
+
+    /**
+     * @Route("/association", name="index_asso")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function assoAction(){
+
+        return $this->render('default/asso.html.twig');
+    }
 }

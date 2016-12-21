@@ -9,7 +9,7 @@
         {% set results = app.request.query %}
         {% for key in results|keys %}
             {% if key == 'message' %}
-                <div id="message"><h4>Votre inscription a bien été prise enregistré</h4></div>
+                <div id="message"><h4>Votre inscription a bien été enregistré</h4></div>
             {% endif %}
         {% endfor %}
         <div class="container">
@@ -34,6 +34,7 @@
             </ul>
 
             <header class="major special event">
+                <h5>{{ event.header|nl2br }}</h5>
                 <h2>{{ event.title }}</h2>
                 <h5>(
                     {% for tag in event.getTags() %}
@@ -46,25 +47,24 @@
                     )</h5>
             </header>
 
-            {% if event.images %}
+            {% if event.images|first %}
+                {% set image = event.images|first %}
                 <div class="box alt">
                     <div class="row 50% uniform">
                         <div class="12u$">
                         <span class="image fit"><img
-                                    src="{{ asset('uploads/images/'~event.images[0].getId()~'.'~event.images[0].getExtension()) }}"
-                                    alt="{{ event.images[0].getOriginalName() }}" /></span></div>
+                                    src="{{ asset('uploads/images/'~image.getId()~'.'~image.getExtension()) }}"
+                                    alt="{{ image.getOriginalName() }}" /></span></div>
                     </div>
                 </div>
             {% endif %}
 
-            <p class="event">{{ event.presentation }}</p>
+            <p class="event">{{ event.presentation|nl2br }}</p>
 
-            <p class="event">{{ event.addInfo }}</p>
-
-            <h2 class="event">L'événement se déroulera du {{ event.startDate|date('d-m-Y à h:i') }} au
-                {{ event.endDate|date('d-m-Y à h:i') }}</h2>
-            <h3> à l'adresse {{ event.appointment.getAddress }} {{ event.appointment.getZipCode() }}
-            {{ event.appointment.getCity() }}</h3>
+            <h2 class="event">L'événement se déroulera du {{ event.startDate|date('d-m-Y à H:i') }} au
+                {{ event.endDate|date('d-m-Y à H:i') }}</h2>
+            <h3> à l'adresse {{event.appointment.getAppointment()~' '~event.appointment.getAddress()
+                ~' '~event.appointment.getZipCode()~' '~event.appointment.getCity() }}</h3>
 
             <p class="event">{{ event.appointment.getAddInfo() }}</p>
 
@@ -72,9 +72,10 @@
                 {% if dispo ==1 %}
                     <h4>il ne reste plus qu'une seule place de disponible.</h4>
                 {% else %}
-                <h4>Il reste {{ dispo }} places de disponibles</h4>
+                    <h4>Il reste {{ dispo }} places de disponibles</h4>
                 {% endif %}
 
+                <p class="event">{{ event.addInfo }}</p>
                 <ul class="actions event">
                     {% if dispo %}
                         <li>
@@ -111,6 +112,42 @@
                     </div>
                 </div>
             {% endif %}
+
+            <section id="two" class="wrapper special">
+                <div class="inner">
+                    <header class="major narrow">
+                        {#<h2>Ils s’engagent avec nous en faveur des personnes souffrant de handicap</h2>#}
+                        <p>Ils s’engagent avec nous en faveur des personnes souffrant de handicap</p>
+                    </header>
+                    <div class="image-grid">
+                        <a href="http://paysdelaloire.franceolympique.com/" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/ville de nantes.png') }}"
+                                                       alt="logo ville de nantes" /></a>
+                        <a href="http://paysdelaloire.franceolympique.com" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/CROS.jpg') }}"
+                                                       alt="logo ville de nantes" /></a>
+                        <a href="https://www.creditmutuel.fr" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/credit mutuel.jpg') }}"
+                                 alt="logo ville de nantes"></a>
+                        <a href="http://www.lacite-nantes.fr" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/cité congrès.jpg') }}"
+                                 alt="logo cité des congrès nantes" /></a>
+                        <a href="http://www.erepl.fr" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/reflexion.png') }}"
+                                 alt="logo espace reflexion pays de la loire" /></a>
+                        <a href="http://www.lesvignesdenantes.com/" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/vignes nantes.jpg') }}"
+                                                       alt="logo les vignes de nantes" /></a>
+                        <a href="http://www.ruffault.fr/" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/ruffault.png') }}"
+                                                       alt="logo ruffault traiteur nantes" /></a>
+                        <a href="#" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/team303.jpg') }}"
+                                                       alt="logo team303" /></a>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </section>
 {% endblock %}

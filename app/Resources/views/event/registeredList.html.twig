@@ -9,6 +9,7 @@
             <th>Prénom</th>
             <th>Numéro de téléphone</th>
             <th>Adresse email</th>
+            <th>Information complémentaire</th>
             <th>Personne à mobilité réduite</th>
             <th>inscription validé</th>
             <th>Action</th>
@@ -21,6 +22,7 @@
                 <td>{{ registered.getFirstname() }}</td>
                 <td>{{ registered.getPhone() }}</td>
                 <td>{{ registered.getEmail() }}</td>
+                <td>{{ registered.getAddInfo() }}</td>
                 <td>{% if registered.getMobility() %} Oui {% else %} Non {% endif %}</td>
                 <td>{% if registered.getValidated %}
                         <input type="checkbox" id="{{ registered.getId() }}" name="validate" checked>

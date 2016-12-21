@@ -1,7 +1,5 @@
 <!-- Header -->
 <header id="header" class="alt">
-    {#<h1><a href="index.html">Retrospect</a></h1>#}
-    {#<a href="#nav">Menu</a>#}
 
     <!-- Nav -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -14,12 +12,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('ehs_default_index') }}">
-                    <img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo EHS" style="height: 2.0em"></a>
+                    <img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo EHS" style="height: 2.2em"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="active"><a href="{{ path('ehs_default_index') }}">Accueil</a></li>
-                    <li><a href="#">L'association</a></li>
+                    <li><a href="{{ path('index_asso') }}">L'association</a></li>
                     <li><a href="{{ path('event_frontShow') }}">Les événements</a></li>
                     {% if is_granted('ROLE_USER') %}
                     <li class="dropdown">

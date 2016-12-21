@@ -68,6 +68,13 @@ class EventInscription
      */
     private $event;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="add_info", type="text", nullable=true)
+     */
+    private $addInfo;
+
 
     /**
      * Get id
@@ -231,6 +238,22 @@ class EventInscription
     public function setEvent($event)
     {
         $this->event = $event;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddInfo()
+    {
+        return $this->addInfo;
+    }
+
+    /**
+     * @param string $addInfo
+     */
+    public function setAddInfo($addInfo)
+    {
+        $this->addInfo = $addInfo;
     }
 
 }

@@ -24,7 +24,7 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(name="program", type="text")
+     * @ORM\Column(name="program", type="text", nullable=true)
      */
     private $program;
 
