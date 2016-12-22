@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93ee5562-7ef9-4b3c-aeec-19f782d09e43" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/web/uploads/images/pic11old.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/uploads/images/pic11.jpg" afterPath="$PROJECT_DIR$/web/uploads/images/pic11.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/event/frontShow.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/event/frontShow.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/event/nextEvent.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/event/nextEvent.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/event/show.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/event/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EHSBundle/Controller/NewsletterReceiverController.php" afterPath="$PROJECT_DIR$/src/EHSBundle/Controller/NewsletterReceiverController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/EHSBundle/Controller/ProgramController.php" afterPath="$PROJECT_DIR$/src/EHSBundle/Controller/ProgramController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,10 +32,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="show.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/event/show.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3450">
+            <state relative-caret-position="276">
               <caret line="75" column="21" lean-forward="false" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
               <folding />
             </state>
@@ -74,18 +65,28 @@
       <file leaf-file-name="frontShow.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/event/frontShow.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="874">
               <caret line="19" column="115" lean-forward="false" selection-start-line="19" selection-start-column="115" selection-end-line="19" selection-end-column="115" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventType.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EventType.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/EHSBundle/Form/EventType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
+            <state relative-caret-position="46">
               <caret line="20" column="69" lean-forward="false" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/bundles/EHS/css/main.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1123">
+              <caret line="4185" column="32" lean-forward="false" selection-start-line="4185" selection-start-column="32" selection-end-line="4185" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -200,9 +201,9 @@
         <option value="$PROJECT_DIR$/app/Resources/views/header.thml.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/event/nextEvent.html.twig" />
-        <option value="$PROJECT_DIR$/web/bundles/EHS/css/main.css" />
         <option value="$PROJECT_DIR$/app/Resources/views/event/show.html.twig" />
         <option value="$PROJECT_DIR$/app/Resources/views/event/frontShow.html.twig" />
+        <option value="$PROJECT_DIR$/web/bundles/EHS/css/main.css" />
       </list>
     </option>
   </component>
@@ -279,7 +280,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -826,6 +826,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -942,12 +943,13 @@
       <workItem from="1482307480019" duration="16280000" />
       <workItem from="1482335029879" duration="1063000" />
       <workItem from="1482394877569" duration="10808000" />
-      <workItem from="1482416968174" duration="63000" />
+      <workItem from="1482416968174" duration="176000" />
+      <workItem from="1482417296499" duration="743000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="256666000" />
+    <option name="totallyTimeSpent" value="257522000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-13" y="-13" width="3226" height="1746" extended-state="6" />
@@ -959,7 +961,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31319764" sideWeight="0.49875" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31319764" sideWeight="0.49875" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1344,21 +1346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/bundles/EHS/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1072">
-          <caret line="4185" column="25" lean-forward="false" selection-start-line="4185" selection-start-column="25" selection-end-line="4185" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/event/show.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3450">
-          <caret line="75" column="21" lean-forward="false" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2208">
@@ -1385,7 +1372,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/event/frontShow.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="874">
           <caret line="19" column="115" lean-forward="false" selection-start-line="19" selection-start-column="115" selection-end-line="19" selection-end-column="115" />
           <folding />
         </state>
@@ -1393,8 +1380,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/EHSBundle/Form/EventType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
+        <state relative-caret-position="46">
           <caret line="20" column="69" lean-forward="false" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bundles/EHS/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1123">
+          <caret line="4185" column="32" lean-forward="false" selection-start-line="4185" selection-start-column="32" selection-end-line="4185" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/event/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="75" column="21" lean-forward="false" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
           <folding />
         </state>
       </provider>
