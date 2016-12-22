@@ -14,22 +14,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class ProgramController extends Controller
 {
-    /**
-     * Lists all program entities.
-     *
-     * @Route("/", name="program_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $programs = $em->getRepository('EHSBundle:Program')->findAll();
-
-        return $this->render('program/index.html.twig', array(
-            'programs' => $programs,
-        ));
-    }
+//    /**
+//     * Lists all program entities.
+//     *
+//     * @Route("/", name="program_index")
+//     * @Method("GET")
+//     */
+//    public function indexAction()
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $programs = $em->getRepository('EHSBundle:Program')->findAll();
+//
+//        return $this->render('program/index.html.twig', array(
+//            'programs' => $programs,
+//        ));
+//    }
 
     /**
      * Creates a new program entity.

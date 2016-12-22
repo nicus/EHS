@@ -17,7 +17,7 @@
                     {% endif %}
                     <div class="content">
                         <h2>{{ event.getTitle() }}</h2>
-                        <p>{{ event.getPresentation }}</p>
+                        <h5>( {{ nextEvent.appointment.appointment~', '~nextEvent.startDate|date('d M Y') }} )</h5>
                         <ul class="actions">
                             <li>
                                 <a href="{{ path('event_show', {'id': event.id}) }}" class="button alt">Voir le détail</a>

@@ -5,7 +5,7 @@
     {{ render(controller('EHSBundle:Program:show', {'id': event.program.id})) }}
 
     {% set dispo = event.placeNumber - event.inscriptions|length %}
-    <section id="main" class="wrapper">
+    <section id="main" class="wrapper eventShow">
         {% set results = app.request.query %}
         {% for key in results|keys %}
             {% if key == 'message' %}
@@ -15,16 +15,16 @@
         <div class="container">
 
             <ul class="actions event">
+                <li>
+                    <button type="button" class="button special" data-toggle="modal"
+                            data-target="#program{{ event.program.id }}">
+                        Voir le programme
+                    </button>
+                </li>
                 {% if dispo %}
                     <li>
                         <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
                             s'inscrire à l'événement
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="button special" data-toggle="modal"
-                                data-target="#program{{ event.program.id }}">
-                            Voir le programme
                         </button>
                     </li>
                 {% endif %}
@@ -35,16 +35,8 @@
 
             <header class="major special event">
                 <h5>{{ event.header|nl2br }}</h5>
-                <h2>{{ event.title }}</h2>
-                <h5>(
-                    {% for tag in event.getTags() %}
-                        {% if loop.index == loop.last %}
-                            {{ tag.tag }}
-                            {% else %}
-                                {{ tag.tag~', ' }}
-                        {% endif %}
-                    {% endfor %}
-                    )</h5>
+                <h3>{{ event.title }}</h3>
+                <h5>( {{ event.appointment.appointment~', '~event.startDate|date('d M Y') }} )</h5>
             </header>
 
             {% if event.images|first %}
@@ -59,45 +51,41 @@
                 </div>
             {% endif %}
 
-            <p class="event">{{ event.presentation|nl2br }}</p>
+            <p class="event" style="font-family: Georgia, 'Times New Roman', Times, serif">{{ event.presentation|nl2br }}</p>
 
-            <h2 class="event">L'événement se déroulera du {{ event.startDate|date('d-m-Y à H:i') }} au
-                {{ event.endDate|date('d-m-Y à H:i') }}</h2>
-            <h3> à l'adresse {{event.appointment.getAppointment()~' '~event.appointment.getAddress()
-                ~' '~event.appointment.getZipCode()~' '~event.appointment.getCity() }}</h3>
+            {#<h2 class="event">L'événement se déroulera du {{ event.startDate|date('d-m-Y à H:i') }} au#}
+                {#{{ event.endDate|date('d-m-Y à H:i') }}</h2>#}
+            {#<h3> à l'adresse {{event.appointment.getAppointment()~' '~event.appointment.getAddress()#}
+                {#~' '~event.appointment.getZipCode()~' '~event.appointment.getCity() }}</h3>#}
 
-            <p class="event">{{ event.appointment.getAddInfo() }}</p>
+            {#<p class="event">{{ event.appointment.getAddInfo() }}</p>#}
 
             {% if dispo %}
-                {% if dispo ==1 %}
-                    <h4>il ne reste plus qu'une seule place de disponible.</h4>
-                {% else %}
-                    <h4>Il reste {{ dispo }} places de disponibles</h4>
-                {% endif %}
-
-                <p class="event">{{ event.addInfo }}</p>
-                <ul class="actions event">
-                    {% if dispo %}
-                        <li>
-                            <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
-                                s'inscrire à l'événement
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="button special" data-toggle="modal"
-                                    data-target="#program{{ event.program.id }}">
-                                Voir le programme
-                            </button>
-                        </li>
-                    {% endif %}
-                    <li>
-                        <a href="{{ bachUrl }}" class="button alt">retour</a>
-                    </li>
-                </ul>
-
+                <h5>Entrée gratuite selon place disponible</h5>
             {% else %}
-                <h4>Nous sommes désolé, il n'y a plus de place disponible pour cette événement.</h4>
+                <h5>Nous sommes désolés, il n'y a plus de place disponible pour cet événement.</h5>
             {% endif %}
+
+            <p class="event">{{ event.addInfo }}</p>
+            <ul class="actions event">
+                <li>
+                    <button type="button" class="button special" data-toggle="modal"
+                            data-target="#program{{ event.program.id }}">
+                        Voir le programme
+                    </button>
+                </li>
+                {% if dispo %}
+                    <li>
+                        <button type="button" class="button special" data-toggle="modal" data-target="#newInscription">
+                            s'inscrire à l'événement
+                        </button>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ bachUrl }}" class="button alt">retour</a>
+                </li>
+            </ul>
+
             {% if event.images %}
                 <div class="box alt">
                     <div class="row 50% uniform">
@@ -123,27 +111,24 @@
                         <a href="http://paysdelaloire.franceolympique.com/" class="image">
                             <img src="{{ asset('bundles/EHS/images/partenaires/ville de nantes.png') }}"
                                                        alt="logo ville de nantes" /></a>
+                        <a href="http://www.erepl.fr" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/reflexion.png') }}"
+                                 alt="logo espace reflexion pays de la loire" style='width: 10em' /></a>
+                        <a href="http://www.lacite-nantes.fr" class="image">
+                            <img src="{{ asset('bundles/EHS/images/partenaires/cité congrès.jpg') }}"
+                                 alt="logo cité des congrès nantes" style='width: 10em' /></a>
                         <a href="http://paysdelaloire.franceolympique.com" class="image">
                             <img src="{{ asset('bundles/EHS/images/partenaires/CROS.jpg') }}"
                                                        alt="logo ville de nantes" /></a>
                         <a href="https://www.creditmutuel.fr" class="image">
                             <img src="{{ asset('bundles/EHS/images/partenaires/credit mutuel.jpg') }}"
-                                 alt="logo ville de nantes"></a>
-                        <a href="http://www.lacite-nantes.fr" class="image">
-                            <img src="{{ asset('bundles/EHS/images/partenaires/cité congrès.jpg') }}"
-                                 alt="logo cité des congrès nantes" /></a>
-                        <a href="http://www.erepl.fr" class="image">
-                            <img src="{{ asset('bundles/EHS/images/partenaires/reflexion.png') }}"
-                                 alt="logo espace reflexion pays de la loire" /></a>
-                        <a href="http://www.lesvignesdenantes.com/" class="image">
-                            <img src="{{ asset('bundles/EHS/images/partenaires/vignes nantes.jpg') }}"
-                                                       alt="logo les vignes de nantes" /></a>
+                                 alt="logo ville de nantes" style='width: 10em' /></a>
                         <a href="http://www.ruffault.fr/" class="image">
                             <img src="{{ asset('bundles/EHS/images/partenaires/ruffault.png') }}"
                                                        alt="logo ruffault traiteur nantes" /></a>
                         <a href="#" class="image">
                             <img src="{{ asset('bundles/EHS/images/partenaires/team303.jpg') }}"
-                                                       alt="logo team303" /></a>
+                                                       alt="logo team303" style='width: 10em' /></a>
                     </div>
                 </div>
             </section>

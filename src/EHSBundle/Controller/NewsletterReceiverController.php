@@ -14,22 +14,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class NewsletterReceiverController extends Controller
 {
-    /**
-     * Lists all newsletterReceiver entities.
-     *
-     * @Route("/", name="newsletterreceiver_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $newsletterReceivers = $em->getRepository('EHSBundle:NewsletterReceiver')->findAll();
-
-        return $this->render('newsletterreceiver/index.html.twig', array(
-            'newsletterReceivers' => $newsletterReceivers,
-        ));
-    }
+//    /**
+//     * Lists all newsletterReceiver entities.
+//     *
+//     * @Route("/", name="newsletterreceiver_index")
+//     * @Method("GET")
+//     */
+//    public function indexAction()
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $newsletterReceivers = $em->getRepository('EHSBundle:NewsletterReceiver')->findAll();
+//
+//        return $this->render('newsletterreceiver/index.html.twig', array(
+//            'newsletterReceivers' => $newsletterReceivers,
+//        ));
+//    }
 
     /**
      * Creates a new newsletterReceiver entity.

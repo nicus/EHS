@@ -1,13 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <!-- Banner -->
-    {{ render(controller('EHSBundle:Event:nextEvent')) }}
+
+    <!-- Three -->
+    <section id="three" class="wrapper style3 special">
+        <div class="inner">
+            <header class="major narrow	">
+                <img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo EHS" style="height: 15em">
+            </header>
+            <ul class="actions">
+                <li><button type="button" class="button big alt" data-toggle="modal" data-target="#newAdhering">
+                        Adhérer à l'association
+                    </button></li>
+            </ul>
+        </div>
+    </section>
+
+    {#<!-- Banner -->#}
+    {#{{ render(controller('EHSBundle:Event:nextEvent')) }}#}
 
     <!-- One -->
-    {#<section id="one" class="wrapper style1">#}
-        {#<div class="inner">#}
-            {#<article class="feature left">#}
+    <section id="one" class="wrapper style1">
+        <div class="inner">
+            <article class="feature">
+                {{ render(controller('EHSBundle:Event:nextEvent')) }}
                 {#<span class="image"><img src="{{ asset('uploads/images/pic01.jpg') }}" alt="" /></span>#}
                 {#<div class="content">#}
                     {#<h2>Integer vitae libero acrisus egestas placerat  sollicitudin</h2>#}
@@ -18,7 +34,7 @@
                         {#</li>#}
                     {#</ul>#}
                 {#</div>#}
-            {#</article>#}
+            </article>
             {#<article class="feature right">#}
                 {#<span class="image"><img src="{{ asset('uploads/images/pic02.jpg') }}" alt="" /></span>#}
                 {#<div class="content">#}
@@ -31,8 +47,8 @@
                     {#</ul>#}
                 {#</div>#}
             {#</article>#}
-        {#</div>#}
-    {#</section>#}
+        </div>
+    </section>
 
 
 
@@ -59,20 +75,6 @@
         {#</div>#}
     {#</section>#}
 
-    <!-- Three -->
-    <section id="three" class="wrapper style3 special">
-        <div class="inner">
-            <header class="major narrow	">
-                <img src="{{ asset('bundles/EHS/images/ehs.png') }}" alt="logo EHS" style="height: 15em">
-                <p>Vivons ensemble</p>
-            </header>
-            <ul class="actions">
-                <li><button type="button" class="button big alt" data-toggle="modal" data-target="#newAdhering">
-                        Adhérer à l'association
-                    </button></li>
-            </ul>
-        </div>
-    </section>
 
     {{ render(controller('EHSBundle:User:new')) }}
     {{ render(controller('EHSBundle:NewsletterReceiver:stop')) }}
